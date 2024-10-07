@@ -1,1 +1,1 @@
-# aws-solution-architect-project-1
+# Launching a Static Website on Amazon S3
