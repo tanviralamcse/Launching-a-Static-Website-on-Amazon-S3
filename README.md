@@ -74,4 +74,10 @@ Through this process, I successfully set up a website using a Namecheap domain, 
 
 ## Mistakes
   - I created SSL certificates in Frankfurt Region, and for that I was unable to locate them while Using CloudFront. 
-      - then I realized that, CloudFront is global. and everything we point to it must has public access or setup globally. 
+      - then I realized that, CloudFront is global. and everything we point to it must has public access or setup globally.
+        
+## AWS Services Used
+  - S3 Bucket
+  - Route53
+  - CloudFront
+  - ACM (Amazon Certificate Manager)
