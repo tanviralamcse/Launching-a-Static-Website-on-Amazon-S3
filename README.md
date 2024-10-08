@@ -15,23 +15,23 @@ In this document, I would like to share my experience setting up a website using
 1. **Create Buckets**:
    - After registering the domain, I logged into the AWS Management Console and navigated to **S3**.
    - I created two S3 buckets:
-     - `itsaws.com`
-     - `www.itsaws.com`
+     - `example.com`
+     - `www.example.com`
 
 2. **Configure Bucket Settings**:
    - I set both buckets to be **public** and enabled static website hosting.
-   - Additionally, I configured the `www.itsaws.com` bucket to redirect to `itsaws.com`.
+   - Additionally, I configured the `www.example.com` bucket to redirect to `example.com`.
 
 3. **Upload `index.html`**:
-   - I uploaded my `index.html` file to the `itsaws.com` bucket, which would serve as the homepage for my website.
+   - I uploaded my `index.html` file to the `example.com` bucket, which would serve as the homepage for my website.
 
 ## Step 3: Setting Up AWS Route 53
 
 1. **Create a Hosted Zone**:
-   - I then navigated to **Route 53** in the AWS Management Console and created a new hosted zone for `itsaws.com`.
+   - I then navigated to **Route 53** in the AWS Management Console and created a new hosted zone for `example.com`.
 
 2. **Add Records**:
-   - I added an A record pointing to my S3 bucket for `itsaws.com` and a CNAME record for `www.itsaws.com`.
+   - I added an A record pointing to my S3 bucket for `example.com` and a CNAME record for `www.example.com`.
 
 ## Step 4: Updating Name Servers
 
@@ -41,7 +41,7 @@ In this document, I would like to share my experience setting up a website using
 ## Step 5: Generating SSL Certificates
 
 1. **Request SSL Certificates**:
-   - I navigated to **AWS Certificate Manager** to request a new public certificate for `itsaws.com` and `www.itsaws.com`.
+   - I navigated to **AWS Certificate Manager** to request a new public certificate for `example.com` and `www.example.com`.
 
 2. **Generate CNAME Records**:
    - After requesting the certificate, AWS provided me with CNAME records for validation.
@@ -52,7 +52,7 @@ In this document, I would like to share my experience setting up a website using
 ## Step 6: Applying CloudFront CDN
 
 1. **Create a CloudFront Distribution**:
-   - Next, I created a new CloudFront distribution in **Amazon CloudFront**, setting the origin to point to my S3 bucket (`itsaws.com`).
+   - Next, I created a new CloudFront distribution in **Amazon CloudFront**, setting the origin to point to my S3 bucket (`example.com`).
 
 2. **Configure Settings**:
    - I enabled **SSL** and set the default behavior to redirect HTTP to HTTPS. Additionally, I set up custom error pages as needed.
@@ -63,7 +63,7 @@ In this document, I would like to share my experience setting up a website using
 ## Step 7: Testing the Setup
 
 1. **Access the Website**:
-   - Once everything was set up, I visited `https://itsaws.com` and `https://www.itsaws.com` to verify that the website was accessible and using HTTPS.
+   - Once everything was set up, I visited `https://example.com` and `https://www.example.com` to verify that the website was accessible and using HTTPS.
 
 2. **Check CloudFront**:
    - I ensured that requests were being served through the CloudFront CDN by checking the headers.
