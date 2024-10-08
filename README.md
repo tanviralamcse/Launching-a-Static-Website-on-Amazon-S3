@@ -1,43 +1,77 @@
-# Static Website Hosting on Amazon S3
+# My Website Setup Experience
 
-## Project Overview
-This project demonstrates how to host a static website using **Amazon S3**. The website consists of HTML files stored in an S3 bucket, and it is made publicly accessible via S3's static website hosting feature. Additionally, the website can be accelerated using **Amazon CloudFront** for content distribution.
+In this document, I would like to share my experience setting up a website using AWS services with a Namecheap domain. Below are the steps I took to successfully launch my website.
 
-### AWS Services Used
-- **Amazon S3**: Storage and static website hosting.
-- **Amazon CloudFront** (optional): Content delivery network (CDN) for faster loading across regions.
-- **Amazon Route 53** (optional): Domain management and DNS configuration for the website URL.
+## Step 1: Domain Registration with Namecheap
 
----
+1. **Register a Domain**: 
+   - I started by registering the domain `example.com` on [Namecheap](https://www.namecheap.com/).
+   - I had an old domain. I used it. 
+   - (you can buy from anywhere or directly from Route53)
+   - or you can transfer your domain
 
-## Project Setup
+## Step 2: Creating S3 Buckets
 
-### 1. Create an S3 Bucket
-1. Log in to your [AWS Management Console](https://aws.amazon.com/console/).
-2. Navigate to **S3** and create a new bucket.
-   - **Bucket name**: Choose a globally unique name (e.g., `my-website-example`).
-   - **Region**: Select a region close to your user base.
-3. In the **Properties** tab of the bucket, enable **Static Website Hosting**:
-   - Set the index document as `index.html`.
-   - (Optional) Set the error document as `error.html`.
+1. **Create Buckets**:
+   - After registering the domain, I logged into the AWS Management Console and navigated to **S3**.
+   - I created two S3 buckets:
+     - `itsaws.com`
+     - `www.itsaws.com`
 
-4. Upload your website files (e.g., `index.html`, `style.css`, `images/`).
-   - Ensure that `index.html` is correctly placed in the root directory.
+2. **Configure Bucket Settings**:
+   - I set both buckets to be **public** and enabled static website hosting.
+   - Additionally, I configured the `www.itsaws.com` bucket to redirect to `itsaws.com`.
 
-### 2. Configure Bucket Permissions
-1. Open the **Permissions** tab in the S3 bucket.
-2. Update the **Bucket Policy** to allow public read access to your files. Here is an example policy:
+3. **Upload `index.html`**:
+   - I uploaded my `index.html` file to the `itsaws.com` bucket, which would serve as the homepage for my website.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::your-bucket-name/*"
-    }
-  ]
-}
+## Step 3: Setting Up AWS Route 53
+
+1. **Create a Hosted Zone**:
+   - I then navigated to **Route 53** in the AWS Management Console and created a new hosted zone for `itsaws.com`.
+
+2. **Add Records**:
+   - I added an A record pointing to my S3 bucket for `itsaws.com` and a CNAME record for `www.itsaws.com`.
+
+## Step 4: Updating Name Servers
+
+1. **Update Name Servers**:
+   - I accessed the domain settings in Namecheap and changed the name servers to the AWS Route 53 name servers, which I found in the hosted zone for my domain.
+
+## Step 5: Generating SSL Certificates
+
+1. **Request SSL Certificates**:
+   - I navigated to **AWS Certificate Manager** to request a new public certificate for `itsaws.com` and `www.itsaws.com`.
+
+2. **Generate CNAME Records**:
+   - After requesting the certificate, AWS provided me with CNAME records for validation.
+
+3. **Validate DNS Using CNAME Records**:
+   - I logged into Namecheap and added the provided CNAME records to the DNS settings for my domain.
+
+## Step 6: Applying CloudFront CDN
+
+1. **Create a CloudFront Distribution**:
+   - Next, I created a new CloudFront distribution in **Amazon CloudFront**, setting the origin to point to my S3 bucket (`itsaws.com`).
+
+2. **Configure Settings**:
+   - I enabled **SSL** and set the default behavior to redirect HTTP to HTTPS. Additionally, I set up custom error pages as needed.
+
+3. **Deploy Distribution**:
+   - I waited for the CloudFront distribution to deploy, which took some time for the changes to propagate.
+
+## Step 7: Testing the Setup
+
+1. **Access the Website**:
+   - Once everything was set up, I visited `https://itsaws.com` and `https://www.itsaws.com` to verify that the website was accessible and using HTTPS.
+
+2. **Check CloudFront**:
+   - I ensured that requests were being served through the CloudFront CDN by checking the headers.
+
+## Conclusion
+
+Through this process, I successfully set up a website using a Namecheap domain, hosted on AWS S3, secured with SSL, and served via CloudFront. I hope my experience helps others who are looking to achieve similar goals. Feel free to update this documentation as you make further changes or improvements to your setup.
+
+## Mistakes
+  - I created SSL certificates in Frankfurt Region, and for that I was unable to locate them while Using CloudFront. 
+      - then I realized that, CloudFront is global. and everything we point to it must has public access or setup globally. 
