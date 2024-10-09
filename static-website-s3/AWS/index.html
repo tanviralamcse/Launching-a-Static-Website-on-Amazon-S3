@@ -1,9 +1,41 @@
-<html xmlns="http://www.w3.org/1999/xhtml" ></html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>My Website Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-  <h1>Welcome to my website</h1>
-  <p>Now hosted on Amazon S3!</p>
+    <h1>Simple Form</h1>
+    <form id="myForm">
+        <label for="userInput">Enter something:</label>
+        <input type="text" id="userInput" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="output" id="output"></div>
+
+    <script>
+        // Function to display the input value
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const userInput = document.getElementById('userInput').value; // Get the input value
+            document.getElementById('output').innerText = `You entered: ${userInput}`; // Display the input value
+            document.getElementById('userInput').value = ''; // Clear the input field
+        });
+    </script>
 </body>
 </html>
