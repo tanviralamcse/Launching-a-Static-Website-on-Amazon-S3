@@ -16,10 +16,10 @@ jobs:
     - name: Set up AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AKIAUJYWWRXW7ZMHJ6UO }}  # Ensure this matches your secret name
-        aws-secret-access-key: ${{ secrets.NlwizhemQ2JCAQ0fNttZIsVQh2LfTdhASsXSFV/o }}  # Ensure this matches your secret name
-        aws-region: eu-central-1  # Change to your desired region
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Use the secret name, not the actual key
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Use the secret name, not the actual key
+        aws-region: eu-central-1  # Set your region
 
     - name: Sync files to S3
       run: |
-        aws s3 sync . s3://itsaws --exclude ".git/*" --delete
+        aws s3 sync . s3://itsaws.com --exclude ".git/*" --delete
