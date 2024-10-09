@@ -1,35 +1,25 @@
-name: Deploy to S3
+name: CI/CD Pipeline for AWS S3
 
 on:
   push:
     branches:
-      - main  # Change this to your default branch if different
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+      
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-        node-version: '14'  # Specify the Node.js version if needed
+        aws-access-key-id: ${{ secrets.AKIAUJYWWRXW7ZMHJ6UO }}  # Ensure this matches your secret name
+        aws-secret-access-key: ${{ secrets.NlwizhemQ2JCAQ0fNttZIsVQh2LfTdhASsXSFV/o }}  # Ensure this matches your secret name
+        aws-region: eu-central-1  # Change to your desired region
 
-    - name: Install dependencies
-      run: npm install  # Optional, depending on your project
-
-    - name: Build
-      run: npm run build  # Change if you're using a different build command
-
-    - name: Deploy to S3
-      uses: jakejarvis/s3-sync-action@0.5.0
-      with:
-        args: --acl public-read --delete
-      env:
-        AWS_S3_BUCKET: itsaws.com
-        AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUJYWWRXW7ZMHJ6UO }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.NlwizhemQ2JCAQ0fNttZIsVQh2LfTdhASsXSFV/o }}
-        SOURCE_DIR: './'  # Change this if your files are in a different folder
+    - name: Sync files to S3
+      run: |
+        aws s3 sync . s3://itsaws --exclude ".git/*" --delete
