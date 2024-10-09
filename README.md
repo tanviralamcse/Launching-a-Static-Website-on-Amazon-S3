@@ -73,5 +73,14 @@ In this document, I would like to share my experience setting up a website using
 Through this process, I successfully set up a website using a Namecheap domain, hosted on AWS S3, secured with SSL, and served via CloudFront. I hope my experience helps others who are looking to achieve similar goals. Feel free to update this documentation as you make further changes or improvements to your setup.
 
 ## Mistakes
-  - I created SSL certificates in Frankfurt Region, and for that I was unable to locate them while Using CloudFront. 
+  - ## SSL configuration
+    - I created SSL certificates in Frankfurt Region, and for that I was unable to locate them while Using CloudFront. 
       - then I realized that, CloudFront is global. and everything we point to it must has public access or setup globally. 
+  - ## Bucket Configuration: 
+      - I initially created two identical S3 buckets containing the same files. In hindsight, I realized that there should only be one main bucket for serving content and a separate bucket solely for redirecting traffic.
+
+  - ## Static Website Hosting
+      - I did not configure the S3 buckets for static website hosting. This setup is essential for serving web content directly from S3, ensuring proper URL handling and access.
+
+  - ## CloudFront Origin Setup
+      - In my CloudFront configuration, I mistakenly set up two origins instead of just one. Additionally, I left the root directory field populated instead of leaving it blank, which led to unnecessary redirections.
