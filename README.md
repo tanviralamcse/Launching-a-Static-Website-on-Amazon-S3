@@ -106,6 +106,7 @@ jobs:
     - name: Sync files to S3
       run: |
         aws s3 sync . s3://BUCKET_NAME --exclude ".git/*" --delete  # Sync files to the S3 bucket, excluding .git files
+```
 ### 3. Configure AWS S3 Bucket:
    - Setup S3 bucket as Static Website Hosting.
    - The S3 bucket name used in the workflow (s3://BUCKET_NAME) must match your actual bucket name.
