@@ -9,7 +9,7 @@ In this document, I would like to share my experience setting up a website using
    - I had an old domain. I used it. 
    - (you can buy from anywhere or directly from Route53)
    - or you can transfer your domain
-![ScreenShot]([https://raw.github.com/{username}/{repository}/{branch}/{path}](https://raw.githubusercontent.com/tanviralamcse/Launching-a-Static-Website-on-Amazon-S3/refs/heads/main/static-website-s3/Screenshots/Domain-10-10-2024_10_35_AM.png))
+![ScreenShot]([(https://raw.githubusercontent.com/tanviralamcse/Launching-a-Static-Website-on-Amazon-S3/refs/heads/main/static-website-s3/Screenshots/Domain-10-10-2024_10_35_AM.png])
 ## Step 2: Creating S3 Buckets
 
 1. **Create Buckets**:
