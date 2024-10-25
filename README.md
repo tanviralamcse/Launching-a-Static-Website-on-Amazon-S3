@@ -1,7 +1,7 @@
 # My Website Setup Experience
 
 In this document, I would like to share my experience setting up a website using AWS services with a Namecheap domain. Below are the steps I took to successfully launch my website.
-
+![ScreenShot](https://raw.githubusercontent.com/tanviralamcse/Launching-a-Static-Website-on-Amazon-S3/refs/heads/main/static-website-s3/Screenshots/awsdiagram.jpeg)
 ## Step 1: Domain Registration with Namecheap
 
 1. **Register a Domain**: 
